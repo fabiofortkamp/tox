@@ -31,7 +31,11 @@ def get_options(*args: str) -> Options:
     except ValueError:
         pass
     else:
+        # everything that is after the "--"
+        # i.e. arguments to the command within the environment
         pos_args = tuple(args[pos_arg_at + 1 :])
+
+        # arguments to tox itself
         args = args[:pos_arg_at]
 
     guess_verbosity, log_handler, source = _get_base(args)

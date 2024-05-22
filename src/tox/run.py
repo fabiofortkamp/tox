@@ -15,6 +15,7 @@ from tox.session.state import State
 
 
 def run(args: Sequence[str] | None = None) -> None:
+    """CLI entry point for tox."""
     try:
         with ToxHandler.patch_thread():
             result = main(sys.argv[1:] if args is None else args)
@@ -36,6 +37,14 @@ def run(args: Sequence[str] | None = None) -> None:
 
 
 def main(args: Sequence[str]) -> int:
+    """Process and execute command line arguments to tox.
+
+    Args:
+        args: command line arguments
+
+    Returns:
+        status code of the tox execution
+    """
     state = setup_state(args)
     from tox.provision import provision  # noqa: PLC0415
 
