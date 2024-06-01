@@ -25,6 +25,13 @@ class Options(NamedTuple):
 
 
 def get_options(*args: str) -> Options:
+    """Return the parsed `Options` based on the command line arguments.
+
+    Args:
+        *args: command line arguments passed to tox
+    """
+    # 'pos_args' can always be none if no '--' is present
+    # i.e. the user is not passing any arguments to the command within the environment
     pos_args: tuple[str, ...] | None = None
     try:  # remove positional arguments passed to parser if specified, they are pulled directly from sys.argv
         pos_arg_at = args.index("--")
@@ -46,7 +53,12 @@ def get_options(*args: str) -> Options:
 
 
 def _get_base(args: Sequence[str]) -> tuple[int, ToxHandler, Source]:
-    """First just load the base options (verbosity+color) to setup the logging framework."""
+    """First just load the base options (verbosity+color) to setup the logging framework.
+
+    Args:
+        args: command line arguments to the tox command, excluding positional arguments
+            (i.e. passed to the environment command)
+    """
     tox_parser = ToxParser.base()
     parsed = Parsed()
     try:

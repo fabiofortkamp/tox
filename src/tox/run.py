@@ -57,6 +57,9 @@ def main(args: Sequence[str]) -> int:
 
 def setup_state(args: Sequence[str]) -> State:
     """Setup the state object of this run."""
+    # this returns an "absolute" reference for the start of the run
+    # 'monotonic' is used to avoid issues with system time changes;
+    # the time is always going forward and can never go back
     start = time.monotonic()
     # parse CLI arguments
     options = get_options(*args)

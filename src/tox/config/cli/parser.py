@@ -108,6 +108,8 @@ class HelpFormatter(ArgumentDefaultsHelpFormatter):
 
 
 ToxParserT = TypeVar("ToxParserT", bound="ToxParser")
+"""Type annotation for subtypes of ToxParser."""
+
 DEFAULT_VERBOSITY = 2
 
 
@@ -286,6 +288,11 @@ class ToxParser(ArgumentParserWithEnvAndConfig):
 
     @classmethod
     def base(cls: type[ToxParserT]) -> ToxParserT:
+        """Return a basic ToxParser.
+
+        This instance does not accept the '-h' flag for help,
+        and add sensible defaults for required options.
+        """
         return cls(add_help=False, root=True)
 
     @classmethod
